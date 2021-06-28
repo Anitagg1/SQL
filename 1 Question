@@ -3,7 +3,11 @@
       SELECT * FROM products WHERE Price >= 180 ORDER BY 'Code', Price;
 
 -- 1.2 Select the average price of each manufacturer's products, showing only the manufacturer's code.
-
+       SELECT
+      Code, 
+      AVG(Price) AS average_price
+      FROM products
+      GROUP BY Price, Code;
 
 -- 1.3 Select the average price of each manufacturer's products, showing the manufacturer's name.
 
