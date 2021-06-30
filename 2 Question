@@ -1,18 +1,57 @@
 -- 2.1 Select the last name of all employees.
+
 -- 2.2 Select the last name of all employees, without duplicates.
+         SELECT DISTINCT LastName FROM Employees;
+
 -- 2.3 Select all the data of employees whose last name is "Smith".
+
 -- 2.4 Select all the data of employees whose last name is "Smith" or "Doe".
+         /* With OR */
+         SELECT * FROM Employees
+           WHERE LastName = 'Smith' OR LastName = 'Doe';
+
+         /* With IN */
+         SELECT * FROM Employees
+           WHERE LastName IN ('Smith' , 'Doe');
+
 -- 2.5 Select all the data of employees that work in department 14.
 -- 2.6 Select all the data of employees that work in department 37 or department 77.
+         /* With OR */
+         SELECT * FROM Employees
+           WHERE Department = 37 OR Department = 77;
+
+         /* With IN */
+         SELECT * FROM Employees
+           WHERE Department IN (37,77);
+
 -- 2.7 Select all the data of employees whose last name begins with an "S".
+         SELECT * FROM Employees
+           WHERE LastName LIKE 'S%';
+           
 -- 2.8 Select the sum of all the departments' budgets.
+         SELECT SUM(Budget) FROM Departments;
+         
 -- 2.9 Select the number of employees in each department (you only need to show the department code and the number of employees).
+         SELECT Department, COUNT(*)
+           FROM Employees
+           GROUP BY Department;
+           
 -- 2.10 Select all the data of employees, including each employee's department's data.
+         SELECT *
+         FROM Employees E INNER JOIN Departments D
+         ON E.Department = D.Code;
+
+         SELECT *
+         FROM Employees E INNER JOIN Departments D
+         WHERE E.Department = D.Code;
+
 -- 2.11 Select the name and last name of each employee, along with the name and budget of the employee's department.
          SELECT A.Name, A.LastName, B.Name, B.Budget
          FROM departments B INNER JOIN employees A
          ON A.Department = B.Code;
-
+                  or
+                  WHERE A.Department = B.Code;
+         
 -- 2.12 Select the name and last name of employees working for departments with a budget greater than $60,000.
          SELECT A.Name, A.LastName
          FROM departments B INNER JOIN employees A
@@ -33,7 +72,23 @@
                 SELECT AVG(Budget)
                 FROM Departments
               );
+              
+-- 2.13.1 Number of employees in each department, showing only the department and total number of employees
+         SELECT d.Name, COUNT(SSN)
+         FROM departments d INNER JOIN employees e
+         WHERE e.Department = d.Code
+         or ON
+         GROUP BY Department;
+
 -- 2.14 Select the names of departments with more than two employees.
+         SELECT D.Name FROM Departments D
+           WHERE 2 < 
+           (
+            SELECT COUNT(SSN) 
+              FROM Employees
+              WHERE  Department = D.Code
+           );
+
 -- 2.15 Very Important - Select the name and last name of employees working for departments with second lowest budget.
 -- 2.16  Add a new department called "Quality Assurance", with a budget of $40,000 and departmental code 11. 
 -- And Add an employee called "Mary Moore" in that department, with SSN 847-21-9811.
